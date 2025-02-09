@@ -1,28 +1,23 @@
 from RealtimeSTT import AudioToTextRecorder
 import keyboard
 
-
 def perform_action(action):
     action = action.lower()
-    if "play" in action or "pause" in action:
-        print("Action: Play/Pause")
-        keyboard.send("play/pause media")
-    elif "next" in action:
-        print("Action: Next Song")
-        keyboard.send("next track")
-    elif "back" in action:
-        print("Action: Previous Song")
-        keyboard.send("previous track")
-    elif "mute" in action:
-        print("Action: Mute/Unmute")
-        keyboard.send("volume mute")
-    elif "volume up" in action:
-        print("Action: Volume Up")
-        keyboard.send("volume up")
-    elif "volume down" in action:
-        print("Action: Volume Down")
-        keyboard.send("volume down")
-
+    actions = {
+        "play": lambda: keyboard.send("play/pause media"),
+        "pause": lambda: keyboard.send("play/pause media"),
+        "next": lambda: keyboard.send("next track"),
+        "back": lambda: keyboard.send("previous track"),
+        "mute": lambda: keyboard.send("volume mute"),
+        "volume up": lambda: keyboard.send("volume up"),
+        "volume down": lambda: keyboard.send("volume down")
+    }
+    
+    for key, func in actions.items():
+        if key in action:
+            print(f"Action: {key.capitalize()}")
+            func()
+            break
 
 def process_text(text):
     print(text)
